@@ -59,7 +59,6 @@ public class PlannerGUI extends javax.swing.JFrame {
         RemoveButton = new javax.swing.JButton();
         UpdateButton = new javax.swing.JButton();
         BackButtonBudgeting = new javax.swing.JButton();
-        Calendar = new com.toedter.calendar.JCalendar();
         CalendarDate = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         ViewStatsPanel = new javax.swing.JPanel();
@@ -181,7 +180,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel7))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
@@ -219,7 +218,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton7)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         getContentPane().add(Menu, "card3");
@@ -294,8 +293,6 @@ public class PlannerGUI extends javax.swing.JFrame {
         });
         Budgeting.add(BackButtonBudgeting);
         BackButtonBudgeting.setBounds(110, 310, 80, 30);
-        Budgeting.add(Calendar);
-        Calendar.setBounds(270, 30, 400, 260);
 
         CalendarDate.setText("jTextField3");
         Budgeting.add(CalendarDate);
@@ -465,7 +462,6 @@ Menu.setVisible(true);
     private javax.swing.JButton BackButtonBudgeting;
     private javax.swing.JPanel Budgeting;
     private javax.swing.JButton BudgetingButton;
-    private com.toedter.calendar.JCalendar Calendar;
     private javax.swing.JTextField CalendarDate;
     private javax.swing.JPanel Enter;
     private javax.swing.JButton ExpensesButton;

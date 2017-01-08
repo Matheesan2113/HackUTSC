@@ -6,6 +6,7 @@
 import java.util.*;
 import java.awt.*;
 import java.io.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -180,7 +181,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel7))
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
@@ -218,7 +219,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton7)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         getContentPane().add(Menu, "card3");
@@ -261,7 +262,7 @@ public class PlannerGUI extends javax.swing.JFrame {
         AddButton.setText("Add");
         AddButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            //    AddButtonActionPerformed(evt);
+                AddButtonActionPerformed(evt);
             }
         });
         Budgeting.add(AddButton);
@@ -413,6 +414,21 @@ Menu.setVisible(true);
         // TODO add your handling code here:
         Menu.setVisible(false);
         ViewStatsPanel.setVisible(true);
+        DefaultTableModel model = (DefaultTableModel)StatisticsTable.getModel();
+        model.setRowCount(0);
+        
+        double Food = instance.getTotalCategoryForMonth("Food","05","2017");
+        double clothing= instance.getTotalCategoryForMonth("Clothing","05","2017");
+        double internet = instance.getTotalCategoryForMonth("Internet","05","2017");
+        double homeIns = instance.getTotalCategoryForMonth("Home Insurance","05","2017");
+        
+        double Total = Food + clothing + internet + homeIns;
+        model.addRow(new Object[]{"Food",(100*Food)/Total});
+        model.addRow(new Object[]{"Clothing",(100*clothing)/Total});
+        model.addRow(new Object[]{"Internet",(100*internet)/Total});
+        model.addRow(new Object[]{"Home Insurance",(100*homeIns)/Total});
+        
+
     }//GEN-LAST:event_StatsButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

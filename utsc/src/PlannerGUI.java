@@ -7,7 +7,7 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.*;
-import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -60,9 +60,9 @@ public class PlannerGUI extends javax.swing.JFrame {
         RemoveButton = new javax.swing.JButton();
         UpdateButton = new javax.swing.JButton();
         BackButtonBudgeting = new javax.swing.JButton();
-        Calendar = new com.toedter.calendar.JCalendar();
         CalendarDate = new javax.swing.JTextField();
         AddButton = new javax.swing.JButton();
+        Calendar = new com.toedter.calendar.JCalendar();
         jPanel1 = new javax.swing.JPanel();
         ViewStatsPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -183,7 +183,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel7))
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
@@ -199,29 +199,29 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(StatsButton)
                     .addComponent(ExpensesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(IncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(102, 102, 102)
+                .addGap(87, 87, 87)
                 .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuLayout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(35, 35, 35)
                 .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(MenuLayout.createSequentialGroup()
                         .addComponent(BudgetingButton)
                         .addGap(18, 18, 18)
                         .addComponent(StatsButton)
-                        .addGap(18, 18, 18)
+                        .addGap(22, 22, 22)
                         .addComponent(ExpensesButton)
                         .addGap(18, 18, 18)
                         .addComponent(IncomeButton))
                     .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton7)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         getContentPane().add(Menu, "card3");
@@ -287,16 +287,16 @@ public class PlannerGUI extends javax.swing.JFrame {
         });
         Budgeting.add(BackButtonBudgeting);
         BackButtonBudgeting.setBounds(110, 310, 80, 30);
-        Budgeting.add(Calendar);
-        Calendar.setBounds(270, 30, 400, 260);
 
         CalendarDate.setText("jTextField3");
         Budgeting.add(CalendarDate);
-        CalendarDate.setBounds(320, 280, 270, 30);
+        CalendarDate.setBounds(320, 290, 270, 30);
 
         AddButton.setText("Add");
         Budgeting.add(AddButton);
         AddButton.setBounds(110, 163, 80, 30);
+        Budgeting.add(Calendar);
+        Calendar.setBounds(250, 20, 410, 260);
 
         getContentPane().add(Budgeting, "card4");
 
@@ -413,6 +413,20 @@ Menu.setVisible(true);
         // TODO add your handling code here:
         Menu.setVisible(false);
         ViewStatsPanel.setVisible(true);
+        DefaultTableModel model = (DefaultTableModel)StatisticsTable.getModel();
+        model.setRowCount(0);
+        
+        double Food = instance.getTotalCategoryForMonth("Food","05","2017");
+        double clothing= instance.getTotalCategoryForMonth("Clothing","05","2017");
+        double internet = instance.getTotalCategoryForMonth("Internet","05","2017");
+        double homeIns = instance.getTotalCategoryForMonth("Home Insurance","05","2017");
+        
+        double Total = Food + clothing + internet + homeIns;
+        model.addRow(new Object[]{"Food",(100*Food)/Total});
+        model.addRow(new Object[]{"Clothing",(100*clothing)/Total});
+        model.addRow(new Object[]{"Internet",(100*internet)/Total});
+        model.addRow(new Object[]{"Home Insurance",(100*homeIns)/Total});
+        //
     }//GEN-LAST:event_StatsButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

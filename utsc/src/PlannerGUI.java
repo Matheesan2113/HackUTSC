@@ -427,8 +427,7 @@ Menu.setVisible(true);
         model.addRow(new Object[]{"Clothing",(100*clothing)/Total});
         model.addRow(new Object[]{"Internet",(100*internet)/Total});
         model.addRow(new Object[]{"Home Insurance",(100*homeIns)/Total});
-        
-
+        //
     }//GEN-LAST:event_StatsButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

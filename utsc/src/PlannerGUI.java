@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.util.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.*;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -15,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PlannerGUI extends javax.swing.JFrame {
    private static Driver instance = Driver.getInstance();
+   public static double uno,dos,tres,quatre;
     /**
      * Creates new form PlannerGUI
      */
@@ -33,6 +35,7 @@ public class PlannerGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
+        pieDatasetHandler1 = new org.jfree.data.xml.PieDatasetHandler();
         Enter = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -76,6 +79,7 @@ public class PlannerGUI extends javax.swing.JFrame {
         StatisticsTable = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
         IncomePanel = new javax.swing.JPanel();
         jCalendar1 = new com.toedter.calendar.JCalendar();
         jLabel4 = new javax.swing.JLabel();
@@ -207,7 +211,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel7))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
@@ -444,6 +448,15 @@ public class PlannerGUI extends javax.swing.JFrame {
         ViewStatsPanel.add(jLabel13);
         jLabel13.setBounds(120, 10, 260, 50);
 
+        jButton5.setText("Pie Chart");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        ViewStatsPanel.add(jButton5);
+        jButton5.setBounds(190, 250, 80, 23);
+
         getContentPane().add(ViewStatsPanel, "card4");
 
         IncomePanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -576,9 +589,12 @@ Menu.setVisible(true);
         double clothing= instance.getTotalCategoryForMonth("Clothing","05","2017");
         double internet = instance.getTotalCategoryForMonth("Internet","05","2017");
         double homeIns = instance.getTotalCategoryForMonth("Home Insurance","05","2017");
-        
         double Total = Food + clothing + internet + homeIns;
-        model.addRow(new Object[]{"Food",(100*Food)/Total});
+        uno=(100*(int)Food)/Total;
+        dos=(100*clothing)/Total;
+        tres=(100*internet)/Total;
+        quatre=(100*homeIns)/Total;
+        model.addRow(new Object[]{"Food",((100*Food)/Total)});
         model.addRow(new Object[]{"Clothing",(100*clothing)/Total});
         model.addRow(new Object[]{"Internet",(100*internet)/Total});
         model.addRow(new Object[]{"Home Insurance",(100*homeIns)/Total});
@@ -614,6 +630,21 @@ Menu.setVisible(true);
         IncomePanel.setVisible(true);
         Menu.setVisible(false);
     }//GEN-LAST:event_IncomeButtonActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        DefaultPieDataset pieDataset= new DefaultPieDataset();
+        pieDataset.setValue("Food", uno);
+        pieDataset.setValue("Clothing", dos);
+        pieDataset.setValue("Internet", tres);
+        pieDataset.setValue("Home Insurance", quatre);
+        JFreeChart chart = ChartFactory.createPieChart("Pie Chart", pieDataset,true,true,true);
+        PiePlot P=(PiePlot)chart.getPlot();
+        //P.setForegroundAlpha(TOP_ALIGNMENT);
+        ChartFrame frame = new ChartFrame ("Pie Chart",chart);
+        frame.setVisible(true);
+        frame.setSize(450, 450);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -679,6 +710,7 @@ Menu.setVisible(true);
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -702,6 +734,7 @@ Menu.setVisible(true);
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
+    private org.jfree.data.xml.PieDatasetHandler pieDatasetHandler1;
     private javax.swing.JTextField price1;
     // End of variables declaration//GEN-END:variables
 }

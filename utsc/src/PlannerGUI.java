@@ -5,7 +5,9 @@
  */
 import java.util.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.*;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,12 +57,12 @@ public class PlannerGUI extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         category1 = new javax.swing.JComboBox();
-        AddButton = new javax.swing.JButton();
         RemoveButton = new javax.swing.JButton();
         UpdateButton = new javax.swing.JButton();
         BackButtonBudgeting = new javax.swing.JButton();
         Calendar = new com.toedter.calendar.JCalendar();
         CalendarDate = new javax.swing.JTextField();
+        AddButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         ViewStatsPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -181,7 +183,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel7))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
@@ -219,7 +221,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton7)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         getContentPane().add(Menu, "card3");
@@ -259,15 +261,6 @@ public class PlannerGUI extends javax.swing.JFrame {
         Budgeting.add(category1);
         category1.setBounds(80, 120, 110, 20);
 
-        AddButton.setText("Add");
-        AddButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddButtonActionPerformed(evt);
-            }
-        });
-        Budgeting.add(AddButton);
-        AddButton.setBounds(140, 160, 51, 30);
-
         RemoveButton.setText("Remove");
         RemoveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,7 +268,7 @@ public class PlannerGUI extends javax.swing.JFrame {
             }
         });
         Budgeting.add(RemoveButton);
-        RemoveButton.setBounds(100, 210, 90, 30);
+        RemoveButton.setBounds(110, 210, 80, 30);
 
         UpdateButton.setText("Update");
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -300,6 +293,10 @@ public class PlannerGUI extends javax.swing.JFrame {
         CalendarDate.setText("jTextField3");
         Budgeting.add(CalendarDate);
         CalendarDate.setBounds(320, 280, 270, 30);
+
+        AddButton.setText("Add");
+        Budgeting.add(AddButton);
+        AddButton.setBounds(110, 163, 80, 30);
 
         getContentPane().add(Budgeting, "card4");
 

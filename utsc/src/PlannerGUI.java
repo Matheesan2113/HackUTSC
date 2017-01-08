@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 import javax.swing.table.DefaultTableModel;
+
+import java.sql.*;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
@@ -73,7 +76,7 @@ public class PlannerGUI extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         BackExpenses = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         ViewStatsPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         StatisticsTable = new javax.swing.JTable();
@@ -249,7 +252,10 @@ public class PlannerGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton7))
                     .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton7)
+                .addContainerGap(171, Short.MAX_VALUE))
+
         );
 
         getContentPane().add(Menu, "card3");
@@ -322,7 +328,13 @@ public class PlannerGUI extends javax.swing.JFrame {
         CalendarDate.setBounds(340, 330, 270, 30);
 
         AddButton.setText("Add");
+        AddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddButtonActionPerformed(evt);
+            }
+        });
         Budgeting.add(AddButton);
+
         AddButton.setBounds(130, 200, 80, 30);
         Budgeting.add(Calendar);
         Calendar.setBounds(270, 60, 410, 260);
@@ -357,6 +369,11 @@ public class PlannerGUI extends javax.swing.JFrame {
         jScrollPane2.setViewportView(StatisticsTable1);
 
         jButton3.setText("Find");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         BackExpenses.setText("Back");
         BackExpenses.addActionListener(new java.awt.event.ActionListener() {
@@ -369,7 +386,7 @@ public class PlannerGUI extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Expenses");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Food", "Clothing", "Internet", "Home Insurance" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Food", "Clothing", "Internet", "Home Insurance" }));
 
         javax.swing.GroupLayout ExpensesPanelLayout = new javax.swing.GroupLayout(ExpensesPanel);
         ExpensesPanel.setLayout(ExpensesPanelLayout);
@@ -553,11 +570,21 @@ Menu.setVisible(true);
     }//GEN-LAST:event_category1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Add
-        String name = itemName1.getText();
-        double price = Double.parseDouble(price1.getText());
-        String category = category1.getSelectedItem().toString();
-        instance.addTable(name,price,category,"201704");
+        DefaultTableModel model = (DefaultTableModel)StatisticsTable1.getModel();
+        model.setRowCount(0);
+        try{
+        String category = jComboBox1.getSelectedItem().toString();
+        ResultSet Rs = instance.getInfoCategory(category,"05","2017");
+        
+        while(Rs.next()){
+           // System.out.println(Rs.getString("Name") + Rs.getDouble("Price") + Rs.getString("Date"));
+            model.addRow(new Object[]{Rs.getString("Name"), Rs.getDouble("Price"), Rs.getString("Date")});
+
+        }
+        System.out.println("Worked");
+        }
+        catch(Exception e){}
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
@@ -580,6 +607,7 @@ Menu.setVisible(true);
 
     private void StatsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatsButtonActionPerformed
         // TODO add your handling code here:
+        
         Menu.setVisible(false);
         ViewStatsPanel.setVisible(true);
         DefaultTableModel model = (DefaultTableModel)StatisticsTable.getModel();
@@ -590,6 +618,7 @@ Menu.setVisible(true);
         double internet = instance.getTotalCategoryForMonth("Internet","05","2017");
         double homeIns = instance.getTotalCategoryForMonth("Home Insurance","05","2017");
         double Total = Food + clothing + internet + homeIns;
+
         uno=(100*(int)Food)/Total;
         dos=(100*clothing)/Total;
         tres=(100*internet)/Total;
@@ -619,6 +648,15 @@ Menu.setVisible(true);
         Menu.setVisible(true);
     }//GEN-LAST:event_BackExpensesActionPerformed
 
+
+    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        // TODO add your handling code here:
+         String name = itemName1.getText();
+        double price = Double.parseDouble(price1.getText());
+        String category = category1.getSelectedItem().toString();
+        instance.addTable(name,price,category,"05/04/2017");
+    }//GEN-LAST:event_AddButtonActionPerformed
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         IncomePanel.setVisible(false);
@@ -645,6 +683,7 @@ Menu.setVisible(true);
         frame.setVisible(true);
         frame.setSize(450, 450);
     }//GEN-LAST:event_jButton5ActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -689,7 +728,6 @@ Menu.setVisible(true);
     private javax.swing.JButton BackExpenses;
     private javax.swing.JPanel Budgeting;
     private javax.swing.JButton BudgetingButton;
-    private com.toedter.calendar.JCalendar Calendar;
     private javax.swing.JTextField CalendarDate;
     private javax.swing.JPanel Enter;
     private javax.swing.JButton ExpensesButton;

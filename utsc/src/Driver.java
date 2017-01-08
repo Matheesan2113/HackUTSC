@@ -92,20 +92,40 @@ public class Driver {
         catch(Exception e){}
     }
     
-    public static double getTotalCategoryForMonth(String category, String month, String year) throws Exception {
+    public static double getTotalCategoryForMonth(String category, String month, String year) {
+       double total=0;
+       try{
        Connection con = getConnection();
-       String choose = month + "%" + year;
+       String choose = month + "/%/" + year;
        PreparedStatement myStmt = con.prepareStatement("select Price from budgetdata where Category = ? and Date like ?");
        myStmt.setString (1,category);
        myStmt.setString (2,choose);
        
        ResultSet myRs=myStmt.executeQuery();
-       double total=0;
+       
        
         while(myRs.next()){
             total = myRs.getDouble("Price");
         }
+       }
+       catch(Exception e){}
         return total;
     }
     
+    public static ResultSet getInfoCategory (String category, String month, String year){
+       ResultSet myRs = null;
+               
+       try{
+       Connection con = getConnection();
+       String choose = month + "/%/" + year;
+       PreparedStatement myStmt = con.prepareStatement("select Name, Price, Date from budgetdata where Category = ? and Date like ?");
+       myStmt.setString (1,category);
+       myStmt.setString (2,choose);
+       
+       myRs=myStmt.executeQuery();
+       }
+       catch(Exception e ){}
+       
+      return myRs;
+    }
 }

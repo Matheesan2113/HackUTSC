@@ -63,7 +63,13 @@ public class PlannerGUI extends javax.swing.JFrame {
         CalendarDate = new javax.swing.JTextField();
         AddButton = new javax.swing.JButton();
         Calendar = new com.toedter.calendar.JCalendar();
-        jPanel1 = new javax.swing.JPanel();
+        ExpensesPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        StatisticsTable1 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        BackExpenses = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         ViewStatsPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         StatisticsTable = new javax.swing.JTable();
@@ -123,6 +129,11 @@ public class PlannerGUI extends javax.swing.JFrame {
 
         ExpensesButton.setBackground(new java.awt.Color(255, 255, 255));
         ExpensesButton.setText("Expenses");
+        ExpensesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExpensesButtonActionPerformed(evt);
+            }
+        });
 
         IncomeButton.setBackground(new java.awt.Color(255, 255, 255));
         IncomeButton.setText("Income");
@@ -183,7 +194,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel7))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
@@ -199,9 +210,9 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(StatsButton)
                     .addComponent(ExpensesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(IncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(87, 87, 87)
+                .addGap(77, 77, 77)
                 .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +220,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                 .addGap(63, 63, 63)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MenuLayout.createSequentialGroup()
                         .addComponent(BudgetingButton)
                         .addGap(18, 18, 18)
@@ -221,7 +232,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton7)
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         getContentPane().add(Menu, "card3");
@@ -300,18 +311,77 @@ public class PlannerGUI extends javax.swing.JFrame {
 
         getContentPane().add(Budgeting, "card4");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 703, Short.MAX_VALUE)
+        StatisticsTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "Price", "Date"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        StatisticsTable1.setName("ItemTable"); // NOI18N
+        jScrollPane2.setViewportView(StatisticsTable1);
+
+        jButton3.setText("Find");
+
+        BackExpenses.setText("Back");
+        BackExpenses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackExpensesActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Expenses");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Food", "Clothing", "Internet", "Home Insurance" }));
+
+        javax.swing.GroupLayout ExpensesPanelLayout = new javax.swing.GroupLayout(ExpensesPanel);
+        ExpensesPanel.setLayout(ExpensesPanelLayout);
+        ExpensesPanelLayout.setHorizontalGroup(
+            ExpensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExpensesPanelLayout.createSequentialGroup()
+                .addGap(98, 98, 98)
+                .addGroup(ExpensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ExpensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton3)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ExpensesPanelLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(BackExpenses)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addGroup(ExpensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(76, 76, 76))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 397, Short.MAX_VALUE)
+        ExpensesPanelLayout.setVerticalGroup(
+            ExpensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExpensesPanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(ExpensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(ExpensesPanelLayout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addGap(51, 51, 51)
+                        .addComponent(BackExpenses))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, "card6");
+        getContentPane().add(ExpensesPanel, "card6");
 
         ViewStatsPanel.setLayout(null);
 
@@ -435,6 +505,18 @@ Menu.setVisible(true);
         ViewStatsPanel.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void ExpensesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExpensesButtonActionPerformed
+        // TODO add your handling code here:
+        Menu.setVisible(false);
+       ExpensesPanel.setVisible(true);
+    }//GEN-LAST:event_ExpensesButtonActionPerformed
+
+    private void BackExpensesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackExpensesActionPerformed
+        // TODO add your handling code here:
+        ExpensesPanel.setVisible(false);
+        Menu.setVisible(true);
+    }//GEN-LAST:event_BackExpensesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -474,17 +556,20 @@ Menu.setVisible(true);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;
     private javax.swing.JButton BackButtonBudgeting;
+    private javax.swing.JButton BackExpenses;
     private javax.swing.JPanel Budgeting;
     private javax.swing.JButton BudgetingButton;
     private com.toedter.calendar.JCalendar Calendar;
     private javax.swing.JTextField CalendarDate;
     private javax.swing.JPanel Enter;
     private javax.swing.JButton ExpensesButton;
+    private javax.swing.JPanel ExpensesPanel;
     private javax.swing.JButton IncomeButton;
     private javax.swing.JPanel Menu;
     private javax.swing.JInternalFrame Overview;
     private javax.swing.JButton RemoveButton;
     private javax.swing.JTable StatisticsTable;
+    private javax.swing.JTable StatisticsTable1;
     private javax.swing.JButton StatsButton;
     private javax.swing.JButton UpdateButton;
     private javax.swing.JPanel ViewStatsPanel;
@@ -492,19 +577,22 @@ Menu.setVisible(true);
     private javax.swing.JTextField itemName1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JToolBar jToolBar1;

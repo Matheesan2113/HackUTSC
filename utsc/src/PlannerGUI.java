@@ -262,7 +262,7 @@ public class PlannerGUI extends javax.swing.JFrame {
         AddButton.setText("Add");
         AddButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddButtonActionPerformed(evt);
+            //    AddButtonActionPerformed(evt);
             }
         });
         Budgeting.add(AddButton);

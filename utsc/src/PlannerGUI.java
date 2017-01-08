@@ -10,12 +10,13 @@
  * @author
  */
 public class PlannerGUI extends javax.swing.JFrame {
-
+   private static Driver instance = Driver.getInstance();
     /**
      * Creates new form PlannerGUI
      */
     public PlannerGUI() {
         initComponents();
+        
     }
 
     /**
@@ -154,7 +155,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                 .addGroup(OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
@@ -343,15 +344,28 @@ Menu.setVisible(true);
     }//GEN-LAST:event_category1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        // Add
+        String name = itemName1.getText();
+        double price = Double.parseDouble(price1.getText());
+        String category = category1.getSelectedItem().toString();
+        instance.addTable(name,price,category,"201704");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        String name = itemName1.getText();
+        double price = Double.parseDouble(price1.getText());
+        String category = category1.getSelectedItem().toString();
+        instance.removeTable(name,price,category,"201704");
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        String name = itemName1.getText();
+        double price = Double.parseDouble(price1.getText());
+        String category = category1.getSelectedItem().toString();
+        instance.updateTable(name,price,category,"201704");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import java.util.*;
+import java.awt.*;
+import java.io.*;
 
 /**
  *
@@ -43,6 +45,8 @@ public class PlannerGUI extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         Budgeting = new javax.swing.JPanel();
         itemName1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -50,24 +54,29 @@ public class PlannerGUI extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         category1 = new javax.swing.JComboBox();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        BackButton1 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        itemName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        price = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        category = new javax.swing.JComboBox();
+        AddButton = new javax.swing.JButton();
+        RemoveButton = new javax.swing.JButton();
+        UpdateButton = new javax.swing.JButton();
+        BackButtonBudgeting = new javax.swing.JButton();
+        Calendar = new com.toedter.calendar.JCalendar();
+        CalendarDate = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        ViewStatsPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        StatisticsTable = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
 
         jToolBar1.setRollover(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(500, 400));
+        setMinimumSize(new java.awt.Dimension(760, 450));
+        setPreferredSize(new java.awt.Dimension(760, 450));
+        setSize(new java.awt.Dimension(760, 450));
         getContentPane().setLayout(new java.awt.CardLayout());
 
+        Enter.setBackground(new java.awt.Color(255, 255, 255));
+        Enter.setFocusable(false);
         Enter.setMaximumSize(new java.awt.Dimension(500, 400));
         Enter.setMinimumSize(new java.awt.Dimension(500, 400));
         Enter.setPreferredSize(new java.awt.Dimension(500, 400));
@@ -80,18 +89,20 @@ public class PlannerGUI extends javax.swing.JFrame {
             }
         });
         Enter.add(jButton1);
-        jButton1.setBounds(180, 250, 120, 60);
+        jButton1.setBounds(120, 180, 120, 60);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Budget-icon.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/girl.jpg"))); // NOI18N
         jLabel1.setMaximumSize(new java.awt.Dimension(550, 380));
+        jLabel1.setPreferredSize(new java.awt.Dimension(766, 435));
         Enter.add(jLabel1);
-        jLabel1.setBounds(0, 0, 500, 400);
+        jLabel1.setBounds(10, 0, 730, 435);
 
         getContentPane().add(Enter, "card2");
 
         Menu.setBackground(new java.awt.Color(0, 0, 0));
+        Menu.setPreferredSize(new java.awt.Dimension(454, 400));
 
-        BudgetingButton.setBackground(new java.awt.Color(0, 0, 204));
+        BudgetingButton.setBackground(new java.awt.Color(255, 255, 255));
         BudgetingButton.setText("Budgeting");
         BudgetingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,70 +110,85 @@ public class PlannerGUI extends javax.swing.JFrame {
             }
         });
 
-        StatsButton.setBackground(new java.awt.Color(0, 0, 204));
+        StatsButton.setBackground(new java.awt.Color(255, 255, 255));
         StatsButton.setText("View Statistics");
+        StatsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StatsButtonActionPerformed(evt);
+            }
+        });
 
-        ExpensesButton.setBackground(new java.awt.Color(0, 0, 204));
+        ExpensesButton.setBackground(new java.awt.Color(255, 255, 255));
         ExpensesButton.setText("Expenses");
 
-        IncomeButton.setBackground(new java.awt.Color(0, 0, 204));
+        IncomeButton.setBackground(new java.awt.Color(255, 255, 255));
         IncomeButton.setText("Income");
 
-        jButton7.setBackground(new java.awt.Color(0, 0, 204));
-        jButton7.setText("jButton3");
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("Exit");
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Menu");
 
-        Overview.setBackground(new java.awt.Color(0, 0, 0));
+        Overview.setBackground(new java.awt.Color(255, 255, 255));
         Overview.setTitle("Overview");
         Overview.setVisible(true);
 
-        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel6.setForeground(new java.awt.Color(153, 153, 255));
         jLabel6.setText("Monthly Budget");
 
-        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel7.setForeground(new java.awt.Color(153, 153, 255));
         jLabel7.setText("Current Expenses");
+
+        jTextField1.setEditable(false);
+
+        jLabel11.setText("$");
+
+        jLabel12.setText("$");
 
         javax.swing.GroupLayout OverviewLayout = new javax.swing.GroupLayout(Overview.getContentPane());
         Overview.getContentPane().setLayout(OverviewLayout);
         OverviewLayout.setHorizontalGroup(
             OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OverviewLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(21, 21, 21)
                 .addGroup(OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6))
+                    .addGroup(OverviewLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11))
+                    .addGroup(OverviewLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addComponent(jLabel12)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
-                .addGap(24, 24, 24))
+                .addGroup(OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                    .addComponent(jTextField2))
+                .addContainerGap())
         );
         OverviewLayout.setVerticalGroup(
             OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OverviewLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap()
                 .addGroup(OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addGroup(OverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(179, Short.MAX_VALUE))
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel7))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
         Menu.setLayout(MenuLayout);
         MenuLayout.setHorizontalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuLayout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
                 .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,18 +196,17 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(StatsButton)
                     .addComponent(ExpensesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(IncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(96, 96, 96)
+                .addGap(102, 102, 102)
                 .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addGap(63, 63, 63)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(MenuLayout.createSequentialGroup()
                         .addComponent(BudgetingButton)
                         .addGap(18, 18, 18)
@@ -189,14 +214,17 @@ public class PlannerGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(ExpensesButton)
                         .addGap(18, 18, 18)
-                        .addComponent(IncomeButton)
-                        .addGap(31, 31, 31)
-                        .addComponent(jButton7)))
-                .addGap(165, 165, 165))
+                        .addComponent(IncomeButton))
+                    .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton7)
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         getContentPane().add(Menu, "card3");
 
+        Budgeting.setMinimumSize(new java.awt.Dimension(736, 466));
+        Budgeting.setPreferredSize(new java.awt.Dimension(736, 466));
         Budgeting.setLayout(null);
 
         itemName1.addActionListener(new java.awt.event.ActionListener() {
@@ -205,21 +233,21 @@ public class PlannerGUI extends javax.swing.JFrame {
             }
         });
         Budgeting.add(itemName1);
-        itemName1.setBounds(150, 90, 80, 30);
+        itemName1.setBounds(110, 30, 80, 30);
 
         jLabel8.setText("Price                    $ ");
         Budgeting.add(jLabel8);
-        jLabel8.setBounds(50, 130, 100, 30);
+        jLabel8.setBounds(10, 70, 100, 30);
         Budgeting.add(price1);
-        price1.setBounds(150, 130, 80, 30);
+        price1.setBounds(110, 70, 80, 30);
 
         jLabel9.setText("Category");
         Budgeting.add(jLabel9);
-        jLabel9.setBounds(50, 180, 70, 20);
+        jLabel9.setBounds(10, 120, 70, 20);
 
         jLabel10.setText("Item Name");
         Budgeting.add(jLabel10);
-        jLabel10.setBounds(50, 90, 80, 30);
+        jLabel10.setBounds(10, 30, 80, 30);
 
         category1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Food", "Clothing", "Internet", "Home Insurance" }));
         category1.addActionListener(new java.awt.event.ActionListener() {
@@ -228,98 +256,113 @@ public class PlannerGUI extends javax.swing.JFrame {
             }
         });
         Budgeting.add(category1);
-        category1.setBounds(150, 180, 110, 20);
+        category1.setBounds(80, 120, 110, 20);
 
-        jButton3.setText("Add");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        AddButton.setText("Add");
+        AddButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                AddButtonActionPerformed(evt);
             }
         });
-        Budgeting.add(jButton3);
-        jButton3.setBounds(60, 260, 51, 30);
+        Budgeting.add(AddButton);
+        AddButton.setBounds(140, 160, 51, 30);
 
-        jButton4.setText("Remove");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        RemoveButton.setText("Remove");
+        RemoveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                RemoveButtonActionPerformed(evt);
             }
         });
-        Budgeting.add(jButton4);
-        jButton4.setBounds(150, 260, 90, 30);
+        Budgeting.add(RemoveButton);
+        RemoveButton.setBounds(100, 210, 90, 30);
 
-        jButton5.setText("Update");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        UpdateButton.setText("Update");
+        UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                UpdateButtonActionPerformed(evt);
             }
         });
-        Budgeting.add(jButton5);
-        jButton5.setBounds(270, 260, 80, 30);
+        Budgeting.add(UpdateButton);
+        UpdateButton.setBounds(110, 260, 80, 30);
 
-        BackButton1.setText("Back");
-        BackButton1.addActionListener(new java.awt.event.ActionListener() {
+        BackButtonBudgeting.setText("Back");
+        BackButtonBudgeting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BackButton1ActionPerformed(evt);
+                BackButtonBudgetingActionPerformed(evt);
             }
         });
-        Budgeting.add(BackButton1);
-        BackButton1.setBounds(350, 380, 80, 30);
+        Budgeting.add(BackButtonBudgeting);
+        BackButtonBudgeting.setBounds(110, 310, 80, 30);
+        Budgeting.add(Calendar);
+        Calendar.setBounds(270, 30, 400, 260);
+
+        CalendarDate.setText("jTextField3");
+        Budgeting.add(CalendarDate);
+        CalendarDate.setBounds(320, 280, 270, 30);
 
         getContentPane().add(Budgeting, "card4");
 
-        jPanel2.setLayout(null);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 703, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 397, Short.MAX_VALUE)
+        );
 
-        itemName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemNameActionPerformed(evt);
+        getContentPane().add(jPanel1, "card6");
+
+        ViewStatsPanel.setLayout(null);
+
+        StatisticsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Category", "AmountSpent"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
-        jPanel2.add(itemName);
-        itemName.setBounds(150, 90, 80, 30);
+        StatisticsTable.setName("ItemTable"); // NOI18N
+        jScrollPane1.setViewportView(StatisticsTable);
 
-        jLabel3.setText("Price                    $ ");
-        jPanel2.add(jLabel3);
-        jLabel3.setBounds(50, 130, 100, 30);
-        jPanel2.add(price);
-        price.setBounds(150, 130, 80, 30);
+        ViewStatsPanel.add(jScrollPane1);
+        jScrollPane1.setBounds(60, 70, 360, 150);
 
-        jLabel4.setText("Category");
-        jPanel2.add(jLabel4);
-        jLabel4.setBounds(50, 180, 70, 20);
-
-        jLabel2.setText("Item Name");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(50, 90, 80, 30);
-
-        category.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Food", "Clothing", "Internet", "Home Insurance" }));
-        category.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                categoryActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(category);
-        category.setBounds(150, 180, 110, 20);
+        ViewStatsPanel.add(jButton2);
+        jButton2.setBounds(210, 300, 55, 23);
 
-        getContentPane().add(jPanel2, "card4");
+        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel13.setText("View Spending Statistics");
+        ViewStatsPanel.add(jLabel13);
+        jLabel13.setBounds(120, 10, 260, 50);
+
+        getContentPane().add(ViewStatsPanel, "card4");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void categoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryActionPerformed
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_categoryActionPerformed
-
-    private void itemNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_itemNameActionPerformed
-
-    private void BackButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButton1ActionPerformed
+    private void BackButtonBudgetingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonBudgetingActionPerformed
         // TODO add your handling code here:
 Budgeting.setVisible(false);
 Menu.setVisible(true);
-    }//GEN-LAST:event_BackButton1ActionPerformed
+    }//GEN-LAST:event_BackButtonBudgetingActionPerformed
 
     private void BudgetingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BudgetingButtonActionPerformed
 
@@ -342,17 +385,30 @@ Menu.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_category1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_AddButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_RemoveButtonActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        CalendarDate.setText(Calendar.getDate().toString());
+    }//GEN-LAST:event_UpdateButtonActionPerformed
+
+    private void StatsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatsButtonActionPerformed
+        // TODO add your handling code here:
+        Menu.setVisible(false);
+        ViewStatsPanel.setVisible(true);
+    }//GEN-LAST:event_StatsButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Menu.setVisible(true);
+        ViewStatsPanel.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -363,6 +419,7 @@ Menu.setVisible(true);
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -390,39 +447,42 @@ Menu.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BackButton1;
+    private javax.swing.JButton AddButton;
+    private javax.swing.JButton BackButtonBudgeting;
     private javax.swing.JPanel Budgeting;
     private javax.swing.JButton BudgetingButton;
+    private com.toedter.calendar.JCalendar Calendar;
+    private javax.swing.JTextField CalendarDate;
     private javax.swing.JPanel Enter;
     private javax.swing.JButton ExpensesButton;
     private javax.swing.JButton IncomeButton;
     private javax.swing.JPanel Menu;
     private javax.swing.JInternalFrame Overview;
+    private javax.swing.JButton RemoveButton;
+    private javax.swing.JTable StatisticsTable;
     private javax.swing.JButton StatsButton;
-    private javax.swing.JComboBox category;
+    private javax.swing.JButton UpdateButton;
+    private javax.swing.JPanel ViewStatsPanel;
     private javax.swing.JComboBox category1;
-    private javax.swing.JTextField itemName;
     private javax.swing.JTextField itemName1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JTextField price;
     private javax.swing.JTextField price1;
     // End of variables declaration//GEN-END:variables
 }

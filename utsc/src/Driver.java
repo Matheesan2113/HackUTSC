@@ -29,31 +29,39 @@ public class Driver {
         return myConn;
     }
     
-     public static void createTable() throws Exception {
+     public static void createTable() {
+        try{
         Connection con= getConnection();
         PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS budgetData(id int NOT NULL AUTO_INCREMENT, Name varchar(255), Price double, Category text, Date text, PRIMARY KEY(id))");
         create.executeUpdate();
+        System.out.println("WORKED");
+        }
+        catch( Exception e){
+           e.printStackTrace();
+        }
     }
      
     
-    public static void updateTable(String name, double price, String date)throws Exception {
+    public static void updateTable(String name, double price, String category,String date) {
+        try{
         Connection con = getConnection();
         PreparedStatement myStmt= null;
-        ResultSet myRs = null;
-        myStmt = con.prepareStatement("select * from budgetdata where Name = ? AND Price = ? And Date = ?");
+        myStmt = con.prepareStatement("update budgetdata set Price = ? where Name = ? And Date = ? and Category = ?");
         
-        myStmt.setString(1,name);
-        myStmt.setDouble(2,price);
+        myStmt.setDouble(1,price);
+        myStmt.setString(2,name);
         myStmt.setString(3,date);
-        
-        myRs = myStmt.executeQuery();
+        myStmt.setString(4, category);
+        myStmt.executeUpdate();
+        }
+        catch (Exception e){}
             
     }
     
-    public static void addTable (String name, double price,String category, String date) throws Exception {
+    public static void addTable (String name, double price,String category, String date) {
+        try{
         Connection con = getConnection();
         PreparedStatement myStmt= null;
-        ResultSet myRs = null;
         myStmt = con.prepareStatement("insert into budgetdata (Name, Price, Category, Date) values(?, ?, ?, ?)");
         
         myStmt.setString(1,name);
@@ -61,13 +69,17 @@ public class Driver {
         myStmt.setString(3,category);
         myStmt.setString(4,date);
         
-        myRs = myStmt.executeQuery();
+        myStmt.executeUpdate();
+        }
+        catch(Exception e){
+             e.printStackTrace();
+        }
     }
     
-    public static void removeTable (String name, double price, String category, String date) throws Exception {
+    public static void removeTable (String name, double price, String category, String date) {
+        try{
         Connection con = getConnection();
         PreparedStatement myStmt= null;
-        ResultSet myRs = null;
         myStmt = con.prepareStatement("delete from budgetdata where Name = ? and Price = ? and Category = ? and Date = ?");
         
         myStmt.setString(1,name);
@@ -75,7 +87,9 @@ public class Driver {
         myStmt.setString(3,category);
         myStmt.setString(4,date);
         
-        myRs = myStmt.executeQuery();
+        myStmt.executeUpdate();
+        }
+        catch(Exception e){}
     }
     
     public static double getTotalCategoryForMonth(String category, String month, String year) throws Exception {

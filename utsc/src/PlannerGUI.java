@@ -6,6 +6,7 @@
 import java.util.*;
 import java.awt.*;
 import java.io.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -59,7 +60,6 @@ public class PlannerGUI extends javax.swing.JFrame {
         RemoveButton = new javax.swing.JButton();
         UpdateButton = new javax.swing.JButton();
         BackButtonBudgeting = new javax.swing.JButton();
-        Calendar = new com.toedter.calendar.JCalendar();
         CalendarDate = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         ViewStatsPanel = new javax.swing.JPanel();
@@ -181,7 +181,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel7))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
@@ -219,7 +219,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton7)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         getContentPane().add(Menu, "card3");
@@ -294,8 +294,6 @@ public class PlannerGUI extends javax.swing.JFrame {
         });
         Budgeting.add(BackButtonBudgeting);
         BackButtonBudgeting.setBounds(110, 310, 80, 30);
-        Budgeting.add(Calendar);
-        Calendar.setBounds(270, 30, 400, 260);
 
         CalendarDate.setText("jTextField3");
         Budgeting.add(CalendarDate);
@@ -416,6 +414,20 @@ Menu.setVisible(true);
         // TODO add your handling code here:
         Menu.setVisible(false);
         ViewStatsPanel.setVisible(true);
+        DefaultTableModel model = (DefaultTableModel)StatisticsTable.getModel();
+        model.setRowCount(0);
+        
+        double Food = instance.getTotalCategoryForMonth("Food","05","2017");
+        double clothing= instance.getTotalCategoryForMonth("Clothing","05","2017");
+        double internet = instance.getTotalCategoryForMonth("Internet","05","2017");
+        double homeIns = instance.getTotalCategoryForMonth("Home Insurance","05","2017");
+        
+        double Total = Food + clothing + internet + homeIns;
+        model.addRow(new Object[]{"Food",(100*Food)/Total});
+        model.addRow(new Object[]{"Clothing",(100*clothing)/Total});
+        model.addRow(new Object[]{"Internet",(100*internet)/Total});
+        model.addRow(new Object[]{"Home Insurance",(100*homeIns)/Total});
+        //
     }//GEN-LAST:event_StatsButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -465,7 +477,6 @@ Menu.setVisible(true);
     private javax.swing.JButton BackButtonBudgeting;
     private javax.swing.JPanel Budgeting;
     private javax.swing.JButton BudgetingButton;
-    private com.toedter.calendar.JCalendar Calendar;
     private javax.swing.JTextField CalendarDate;
     private javax.swing.JPanel Enter;
     private javax.swing.JButton ExpensesButton;

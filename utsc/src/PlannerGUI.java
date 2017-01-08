@@ -12,12 +12,13 @@ import java.io.*;
  * @author
  */
 public class PlannerGUI extends javax.swing.JFrame {
-
+   private static Driver instance = Driver.getInstance();
     /**
      * Creates new form PlannerGUI
      */
     public PlannerGUI() {
         initComponents();
+        
     }
 
     /**
@@ -385,18 +386,31 @@ Menu.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_category1ActionPerformed
 
-    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AddButtonActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Add
+        String name = itemName1.getText();
+        double price = Double.parseDouble(price1.getText());
+        String category = category1.getSelectedItem().toString();
+        instance.addTable(name,price,category,"201704");
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveButtonActionPerformed
+    private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
-    }//GEN-LAST:event_RemoveButtonActionPerformed
+        String name = itemName1.getText();
+        double price = Double.parseDouble(price1.getText());
+        String category = category1.getSelectedItem().toString();
+        instance.removeTable(name,price,category,"201704");
 
-    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
+    }                                        
+
+    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
-        CalendarDate.setText(Calendar.getDate().toString());
-    }//GEN-LAST:event_UpdateButtonActionPerformed
+        String name = itemName1.getText();
+        double price = Double.parseDouble(price1.getText());
+        String category = category1.getSelectedItem().toString();
+        instance.updateTable(name,price,category,"201704");
+    }                                        
+                                          
 
     private void StatsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatsButtonActionPerformed
         // TODO add your handling code here:

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.*;
 import javax.swing.table.DefaultTableModel;
+import java.sql.*;
 
 /**
  *
@@ -62,14 +63,13 @@ public class PlannerGUI extends javax.swing.JFrame {
         BackButtonBudgeting = new javax.swing.JButton();
         CalendarDate = new javax.swing.JTextField();
         AddButton = new javax.swing.JButton();
-        Calendar = new com.toedter.calendar.JCalendar();
         ExpensesPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         StatisticsTable1 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         BackExpenses = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         ViewStatsPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         StatisticsTable = new javax.swing.JTable();
@@ -194,7 +194,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel7))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
@@ -232,7 +232,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton7)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         getContentPane().add(Menu, "card3");
@@ -304,10 +304,13 @@ public class PlannerGUI extends javax.swing.JFrame {
         CalendarDate.setBounds(320, 290, 270, 30);
 
         AddButton.setText("Add");
+        AddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddButtonActionPerformed(evt);
+            }
+        });
         Budgeting.add(AddButton);
         AddButton.setBounds(110, 163, 80, 30);
-        Budgeting.add(Calendar);
-        Calendar.setBounds(250, 20, 410, 260);
 
         getContentPane().add(Budgeting, "card4");
 
@@ -331,6 +334,11 @@ public class PlannerGUI extends javax.swing.JFrame {
         jScrollPane2.setViewportView(StatisticsTable1);
 
         jButton3.setText("Find");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         BackExpenses.setText("Back");
         BackExpenses.addActionListener(new java.awt.event.ActionListener() {
@@ -343,7 +351,7 @@ public class PlannerGUI extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Expenses");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Food", "Clothing", "Internet", "Home Insurance" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Food", "Clothing", "Internet", "Home Insurance" }));
 
         javax.swing.GroupLayout ExpensesPanelLayout = new javax.swing.GroupLayout(ExpensesPanel);
         ExpensesPanel.setLayout(ExpensesPanelLayout);
@@ -454,11 +462,21 @@ Menu.setVisible(true);
     }//GEN-LAST:event_category1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Add
-        String name = itemName1.getText();
-        double price = Double.parseDouble(price1.getText());
-        String category = category1.getSelectedItem().toString();
-        instance.addTable(name,price,category,"201704");
+        DefaultTableModel model = (DefaultTableModel)StatisticsTable1.getModel();
+        model.setRowCount(0);
+        try{
+        String category = jComboBox1.getSelectedItem().toString();
+        ResultSet Rs = instance.getInfoCategory(category,"05","2017");
+        
+        while(Rs.next()){
+           // System.out.println(Rs.getString("Name") + Rs.getDouble("Price") + Rs.getString("Date"));
+            model.addRow(new Object[]{Rs.getString("Name"), Rs.getDouble("Price"), Rs.getString("Date")});
+
+        }
+        System.out.println("Worked");
+        }
+        catch(Exception e){}
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
@@ -481,6 +499,7 @@ Menu.setVisible(true);
 
     private void StatsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatsButtonActionPerformed
         // TODO add your handling code here:
+        
         Menu.setVisible(false);
         ViewStatsPanel.setVisible(true);
         DefaultTableModel model = (DefaultTableModel)StatisticsTable.getModel();
@@ -492,10 +511,10 @@ Menu.setVisible(true);
         double homeIns = instance.getTotalCategoryForMonth("Home Insurance","05","2017");
         
         double Total = Food + clothing + internet + homeIns;
-        model.addRow(new Object[]{"Food",(100*Food)/Total});
-        model.addRow(new Object[]{"Clothing",(100*clothing)/Total});
-        model.addRow(new Object[]{"Internet",(100*internet)/Total});
-        model.addRow(new Object[]{"Home Insurance",(100*homeIns)/Total});
+        model.addRow(new Object[]{"Food",Math.round((100.0*100*Food)/Total)/100.0});
+        model.addRow(new Object[]{"Clothing",Math.round((100.0*100*clothing)/Total)/100.0});
+        model.addRow(new Object[]{"Internet",Math.round((100.0*100*internet)/Total)/100.0});
+        model.addRow(new Object[]{"Home Insurance",Math.round((100.0*100*homeIns)/Total)/100.0});
         //
     }//GEN-LAST:event_StatsButtonActionPerformed
 
@@ -516,6 +535,14 @@ Menu.setVisible(true);
         ExpensesPanel.setVisible(false);
         Menu.setVisible(true);
     }//GEN-LAST:event_BackExpensesActionPerformed
+
+    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        // TODO add your handling code here:
+         String name = itemName1.getText();
+        double price = Double.parseDouble(price1.getText());
+        String category = category1.getSelectedItem().toString();
+        instance.addTable(name,price,category,"05/04/2017");
+    }//GEN-LAST:event_AddButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -559,7 +586,6 @@ Menu.setVisible(true);
     private javax.swing.JButton BackExpenses;
     private javax.swing.JPanel Budgeting;
     private javax.swing.JButton BudgetingButton;
-    private com.toedter.calendar.JCalendar Calendar;
     private javax.swing.JTextField CalendarDate;
     private javax.swing.JPanel Enter;
     private javax.swing.JButton ExpensesButton;

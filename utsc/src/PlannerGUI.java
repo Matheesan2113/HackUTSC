@@ -63,6 +63,7 @@ public class PlannerGUI extends javax.swing.JFrame {
         CalendarDate = new javax.swing.JTextField();
         AddButton = new javax.swing.JButton();
         Calendar = new com.toedter.calendar.JCalendar();
+        jLabel3 = new javax.swing.JLabel();
         ExpensesPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         StatisticsTable1 = new javax.swing.JTable();
@@ -75,6 +76,13 @@ public class PlannerGUI extends javax.swing.JFrame {
         StatisticsTable = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
+        IncomePanel = new javax.swing.JPanel();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        AddIncomeButton = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
 
         jToolBar1.setRollover(true);
 
@@ -137,6 +145,11 @@ public class PlannerGUI extends javax.swing.JFrame {
 
         IncomeButton.setBackground(new java.awt.Color(255, 255, 255));
         IncomeButton.setText("Income");
+        IncomeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IncomeButtonActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Exit");
@@ -194,7 +207,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel7))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
@@ -212,7 +225,7 @@ public class PlannerGUI extends javax.swing.JFrame {
                     .addComponent(IncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(77, 77, 77)
                 .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,15 +241,16 @@ public class PlannerGUI extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addComponent(ExpensesButton)
                         .addGap(18, 18, 18)
-                        .addComponent(IncomeButton))
+                        .addComponent(IncomeButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton7))
                     .addComponent(Overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton7)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         getContentPane().add(Menu, "card3");
 
+        Budgeting.setBackground(new java.awt.Color(255, 255, 255));
         Budgeting.setMinimumSize(new java.awt.Dimension(736, 466));
         Budgeting.setPreferredSize(new java.awt.Dimension(736, 466));
         Budgeting.setLayout(null);
@@ -247,21 +261,21 @@ public class PlannerGUI extends javax.swing.JFrame {
             }
         });
         Budgeting.add(itemName1);
-        itemName1.setBounds(110, 30, 80, 30);
+        itemName1.setBounds(130, 70, 80, 30);
 
         jLabel8.setText("Price                    $ ");
         Budgeting.add(jLabel8);
-        jLabel8.setBounds(10, 70, 100, 30);
+        jLabel8.setBounds(30, 110, 100, 30);
         Budgeting.add(price1);
-        price1.setBounds(110, 70, 80, 30);
+        price1.setBounds(130, 110, 80, 30);
 
         jLabel9.setText("Category");
         Budgeting.add(jLabel9);
-        jLabel9.setBounds(10, 120, 70, 20);
+        jLabel9.setBounds(30, 160, 70, 20);
 
         jLabel10.setText("Item Name");
         Budgeting.add(jLabel10);
-        jLabel10.setBounds(10, 30, 80, 30);
+        jLabel10.setBounds(30, 70, 80, 30);
 
         category1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Food", "Clothing", "Internet", "Home Insurance" }));
         category1.addActionListener(new java.awt.event.ActionListener() {
@@ -270,7 +284,7 @@ public class PlannerGUI extends javax.swing.JFrame {
             }
         });
         Budgeting.add(category1);
-        category1.setBounds(80, 120, 110, 20);
+        category1.setBounds(100, 160, 110, 20);
 
         RemoveButton.setText("Remove");
         RemoveButton.addActionListener(new java.awt.event.ActionListener() {
@@ -279,7 +293,7 @@ public class PlannerGUI extends javax.swing.JFrame {
             }
         });
         Budgeting.add(RemoveButton);
-        RemoveButton.setBounds(110, 210, 80, 30);
+        RemoveButton.setBounds(130, 250, 80, 30);
 
         UpdateButton.setText("Update");
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -288,7 +302,7 @@ public class PlannerGUI extends javax.swing.JFrame {
             }
         });
         Budgeting.add(UpdateButton);
-        UpdateButton.setBounds(110, 260, 80, 30);
+        UpdateButton.setBounds(130, 300, 80, 30);
 
         BackButtonBudgeting.setText("Back");
         BackButtonBudgeting.addActionListener(new java.awt.event.ActionListener() {
@@ -297,19 +311,27 @@ public class PlannerGUI extends javax.swing.JFrame {
             }
         });
         Budgeting.add(BackButtonBudgeting);
-        BackButtonBudgeting.setBounds(110, 310, 80, 30);
+        BackButtonBudgeting.setBounds(130, 350, 80, 30);
 
         CalendarDate.setText("jTextField3");
         Budgeting.add(CalendarDate);
-        CalendarDate.setBounds(320, 290, 270, 30);
+        CalendarDate.setBounds(340, 330, 270, 30);
 
         AddButton.setText("Add");
         Budgeting.add(AddButton);
-        AddButton.setBounds(110, 163, 80, 30);
+        AddButton.setBounds(130, 200, 80, 30);
         Budgeting.add(Calendar);
-        Calendar.setBounds(250, 20, 410, 260);
+        Calendar.setBounds(270, 60, 410, 260);
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Budgeting");
+        Budgeting.add(jLabel3);
+        jLabel3.setBounds(280, 10, 120, 30);
 
         getContentPane().add(Budgeting, "card4");
+
+        ExpensesPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         StatisticsTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -383,6 +405,7 @@ public class PlannerGUI extends javax.swing.JFrame {
 
         getContentPane().add(ExpensesPanel, "card6");
 
+        ViewStatsPanel.setBackground(new java.awt.Color(255, 255, 255));
         ViewStatsPanel.setLayout(null);
 
         StatisticsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -422,6 +445,69 @@ public class PlannerGUI extends javax.swing.JFrame {
         jLabel13.setBounds(120, 10, 260, 50);
 
         getContentPane().add(ViewStatsPanel, "card4");
+
+        IncomePanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel4.setText("Income:  $");
+
+        jTextField3.setPreferredSize(new java.awt.Dimension(50, 20));
+
+        jButton4.setText("Back");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        AddIncomeButton.setText("Add");
+
+        jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Income");
+
+        javax.swing.GroupLayout IncomePanelLayout = new javax.swing.GroupLayout(IncomePanel);
+        IncomePanel.setLayout(IncomePanelLayout);
+        IncomePanelLayout.setHorizontalGroup(
+            IncomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IncomePanelLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(IncomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(IncomePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(AddIncomeButton)
+                    .addComponent(jButton4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+            .addGroup(IncomePanelLayout.createSequentialGroup()
+                .addGap(265, 265, 265)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        IncomePanelLayout.setVerticalGroup(
+            IncomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(IncomePanelLayout.createSequentialGroup()
+                .addGroup(IncomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(IncomePanelLayout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addGroup(IncomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addComponent(AddIncomeButton)
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IncomePanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(91, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(IncomePanel, "card7");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -517,6 +603,18 @@ Menu.setVisible(true);
         Menu.setVisible(true);
     }//GEN-LAST:event_BackExpensesActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        IncomePanel.setVisible(false);
+        Menu.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void IncomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IncomeButtonActionPerformed
+        // TODO add your handling code here:
+        IncomePanel.setVisible(true);
+        Menu.setVisible(false);
+    }//GEN-LAST:event_IncomeButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -555,6 +653,7 @@ Menu.setVisible(true);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;
+    private javax.swing.JButton AddIncomeButton;
     private javax.swing.JButton BackButtonBudgeting;
     private javax.swing.JButton BackExpenses;
     private javax.swing.JPanel Budgeting;
@@ -565,6 +664,7 @@ Menu.setVisible(true);
     private javax.swing.JButton ExpensesButton;
     private javax.swing.JPanel ExpensesPanel;
     private javax.swing.JButton IncomeButton;
+    private javax.swing.JPanel IncomePanel;
     private javax.swing.JPanel Menu;
     private javax.swing.JInternalFrame Overview;
     private javax.swing.JButton RemoveButton;
@@ -578,14 +678,19 @@ Menu.setVisible(true);
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton7;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -595,6 +700,7 @@ Menu.setVisible(true);
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextField price1;
     // End of variables declaration//GEN-END:variables

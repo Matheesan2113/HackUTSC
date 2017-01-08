@@ -124,7 +124,7 @@ public class Driver {
        
        myRs=myStmt.executeQuery();
        }
-       catch(Exception e ){}
+       catch(Exception e ){e.printStackTrace();}
        
       return myRs;
     }
